@@ -6,21 +6,21 @@ import Operation from "./Operation";
 
 const Calculrator = () => {
   const {
-    handleDigit,
-    handleOperation,
-    handleCalculate,
+    calculateState,
+    onClickCalculate,
+    onClickOperation,
+    onClickDigit,
     reset,
-    calculrateState,
   } = useCalculate();
 
   return (
     <div className="calculator">
-      <CalculateDisplay calculrateState={calculrateState} />
-      <Digit onClick={handleDigit} />
+      <CalculateDisplay {...calculateState} />
+      <Digit onClick={onClickDigit} />
       <Modifier onClick={reset} />
       <Operation
-        handleOperation={handleOperation}
-        handleCalculate={handleCalculate}
+        onClickOperation={onClickOperation}
+        onClickCalculate={onClickCalculate}
       />
     </div>
   );

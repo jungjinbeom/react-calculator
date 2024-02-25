@@ -1,9 +1,11 @@
-export type OperationKeyType = {
-  [key: string]: number;
-};
+export type OperationKeyType = Record<string, number>;
 
-export type CalculateParams = {
+export type CalculateParams = Record<"first" | "second" | "operator", string>;
+
+export type CalCulateType = {
   first: string;
   second: string;
   operator: string;
+  computed: number;
+  display: string;
 };

@@ -6,7 +6,10 @@ export const OPERATIONS = {
 };
 export const EQUAL = "=";
 
-export const CALCULATOR_MAX_DIGIT = 9;
+export const CALCULATOR_MAX_DIGIT = Array.from(
+  { length: 10 },
+  (_, index) => 9 - index
+);
 
 export const MODIFIER = "AC";
 

@@ -1,22 +1,22 @@
 import { EQUAL, OPERATIONS } from "@/constant";
 
 interface OperationProps {
-  handleOperation: (operation: string) => void;
-  handleCalculate: () => void;
+  onClickOperation: (operation: string) => void;
+  onClickCalculate: () => void;
 }
-const Operation = ({ handleOperation, handleCalculate }: OperationProps) => {
+const Operation = ({ onClickOperation, onClickCalculate }: OperationProps) => {
   return (
     <div className="operations subgrid">
       {Object.values(OPERATIONS).map((operation) => (
         <button
           key={operation}
           className="operation"
-          onClick={() => handleOperation(operation)}
+          onClick={() => onClickOperation(operation)}
         >
           {operation}
         </button>
       ))}
-      <button className="operation" onClick={() => handleCalculate()}>
+      <button className="operation" onClick={onClickCalculate}>
         {EQUAL}
       </button>
     </div>

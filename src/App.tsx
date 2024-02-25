@@ -1,4 +1,4 @@
-import Calcurlator from "./components/Calculrator";
+import Calcurlator from "./components/Calculator";
 
 const App = () => {
   return <Calcurlator />;

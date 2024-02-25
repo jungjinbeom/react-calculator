@@ -1,4 +1,5 @@
-import { calculrate, isNumberLengthValidate, isOperatorValidate } from "@/util";
+import { calculate, validOperator, validNumberLength } from "@/domain";
+
 import { useState } from "react";
 
 const initialState = {
@@ -10,50 +11,61 @@ const initialState = {
 };
 
 const useCalculate = () => {
-  const [calculrateState, setCalculrateState] = useState(initialState);
-  const { first, second, operator, display } = calculrateState;
-  const handleDigit = (digit: number) => {
-    if (!operator && isNumberLengthValidate(first)) {
-      setCalculrateState({
-        ...initialState,
-        first: first + digit,
-        display: display + digit,
-      });
-      return;
-    }
+  const [calculateState, setCalculateState] = useState(initialState);
+  const { first, second, operator, display } = calculateState;
 
-    if (operator && isNumberLengthValidate(second)) {
-      setCalculrateState((prev) => ({
-        ...prev,
-        second: second + digit,
-        display: display + digit,
-      }));
-      return;
+  const onClickDigit = (digit: number) => {
+    try {
+      if (!operator) {
+        validNumberLength(first);
+        setCalculateState({
+          ...initialState,
+          first: first + digit,
+          display: display + digit,
+        });
+        return;
+      }
+
+      if (operator) {
+        validNumberLength(second);
+        setCalculateState((prev) => ({
+          ...prev,
+          second: second + digit,
+          display: display + digit,
+        }));
+      }
+    } catch (e) {
+      alert(e);
     }
   };
-  const handleOperation = (operation: string) => {
-    if (isOperatorValidate(first)) {
-      setCalculrateState((prev) => ({
+
+  const onClickOperation = (operation: string) => {
+    try {
+      validOperator(first);
+      setCalculateState((prev) => ({
         ...prev,
         operator: operation,
         display: display + operation,
       }));
+    } catch (error) {
+      alert(error);
     }
   };
-  const handleCalculate = () => {
-    const computed = calculrate({ first, second, operator });
-    setCalculrateState({ ...initialState, computed });
+
+  const onClickCalculate = () => {
+    const computed = calculate({ first, second, operator });
+    setCalculateState({ ...initialState, computed });
   };
 
   const reset = () => {
-    setCalculrateState(initialState);
+    setCalculateState(initialState);
   };
 
   return {
-    calculrateState,
-    handleCalculate,
-    handleOperation,
-    handleDigit,
+    calculateState,
+    onClickCalculate,
+    onClickOperation,
+    onClickDigit,
     reset,
   };
 };
